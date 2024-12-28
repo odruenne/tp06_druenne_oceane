@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { KibblesService } from '../kibbles.service';
+import { KibblesService } from '../services/kibbles.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({

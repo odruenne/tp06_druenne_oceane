@@ -6,7 +6,11 @@ import { FooterComponent } from './footer/footer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
@@ -14,6 +18,6 @@ export class AppComponent {
   title = 'tp06_druenne_oceane';
   filters = { taste: '', maxPrice: Infinity };
 
-  constructor() {  }
+  constructor() { }
   
 }

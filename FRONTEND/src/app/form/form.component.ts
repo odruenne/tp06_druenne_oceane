@@ -30,7 +30,6 @@ export class FormComponent {
 
   onSubmit() {
     if (this.user.password === this.user.confirmPassword) {
-      console.log(this.user);
       this.formSubmitted.emit(this.user);
     } else {
       console.log('Les mots de passe ne correspondent pas.');

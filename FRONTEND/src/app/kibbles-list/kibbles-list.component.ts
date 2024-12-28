@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KibblesService } from '../kibbles.service';
+import { KibblesService } from '../services/kibbles.service';
 import { Kibbles } from '../../store/models/kibbles';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngxs/store';
@@ -20,6 +20,10 @@ export class KibblesList implements OnInit {
 
   ngOnInit() {
     this.kibblesService.kibblesObservable.subscribe(res => this.kibbles = res);
+    this.getKibbles();
+  }
+
+  getKibbles() : void {
     this.kibblesService.getKibbles('', Infinity);
   }
 

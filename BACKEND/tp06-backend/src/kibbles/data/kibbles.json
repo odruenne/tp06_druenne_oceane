@@ -8,5 +8,4 @@
     {"name": "Pro Kibbles", "pricePerKilo" : 29, "taste":"Turkey","imageURL": "https://www.pro-nutrition.fr/2912-home_default/pure-life-chat-adult-dinde-croquettes-sans-cereales-pour-chat-a-la-dinde.jpg","quantity": 1, "totalPrice": 29},
     {"name": "Wagyu Beef Kibbles", "pricePerKilo" : 57, "taste":"Beef","imageURL":"https://www.sallyetcie.com/wp-content/uploads/30-GR-Coeur-Boeuf-Wagyu-hache.png","quantity": 1, "totalPrice": 57},
     {"name": "Pro Kibbles", "pricePerKilo" : 24, "taste":"Duck","imageURL":"https://www.everland-petfood.com/wp-content/uploads/2020/11/3D_sterilised_cat_duck_4kg_RVB_BD.png","quantity": 1, "totalPrice": 24}
-
 ]

@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { Kibbles } from '../store/models/kibbles';
-import { environment } from '../environments/environment';
+import { Kibbles } from '../../store/models/kibbles';
+import { environment } from '../environments/environment'
 
 // providedIn: root pour utiliser la même instance partout
 @Injectable({
@@ -12,10 +12,10 @@ export class KibblesService implements OnDestroy {
   kibblesSubject: BehaviorSubject<Kibbles[]> = new BehaviorSubject<Kibbles[]>([]); 
   kibblesObservable : Observable<Kibbles[]> = this.kibblesSubject.asObservable();
   
-  constructor(private http:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   public getKibbles(tasteFilter: string, priceFilter: number): void {
-    this.http.get<Kibbles[]>(environment.backendClient)
+    this.httpClient.get<Kibbles[]>(environment.backendURL + "/kibbles")
     .pipe(
       map((kibbles: Kibbles[]) => {
         return kibbles
