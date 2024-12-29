@@ -1,9 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Kibbles } from '../../store/models/kibbles';
 import { environment } from '../environments/environment'
+import { MessageService } from './message.service';
+import { Router } from '@angular/router';
 
+/* KibblesService est un service dans le front qui va gérer la récupération des kibbles */
 // providedIn: root pour utiliser la même instance partout
 @Injectable({
   providedIn: 'root',
@@ -12,11 +15,19 @@ export class KibblesService implements OnDestroy {
   kibblesSubject: BehaviorSubject<Kibbles[]> = new BehaviorSubject<Kibbles[]>([]); 
   kibblesObservable : Observable<Kibbles[]> = this.kibblesSubject.asObservable();
   
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router: Router, private messageService: MessageService) { }
 
   public getKibbles(tasteFilter: string, priceFilter: number): void {
     this.httpClient.get<Kibbles[]>(environment.backendURL + "/kibbles")
     .pipe(
+      tap({
+        error: (err) => {
+          if (err.status === 401) {
+            this.messageService.setData('You must be logged in to access to the catalog.');
+            this.router.navigate(['/login']);
+          }
+        }
+      }),
       map((kibbles: Kibbles[]) => {
         return kibbles
               .filter((k: Kibbles) => k.taste.toLowerCase().includes(tasteFilter.toLowerCase()))

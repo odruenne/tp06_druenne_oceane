@@ -4,6 +4,7 @@ import { AccountService } from '../services/account.service';
 import { UserDTO } from '../models/UserDTO';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-edit-customer-account-data-form',
@@ -19,7 +20,8 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.updateAccountDataForm = this.formBuilder.group({
       lastName: ['', [Validators.required]],
@@ -33,7 +35,19 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();
+
+    if (this.authService.isTokenExpired()) {
+      this.router.navigate(['/logout']);
+      return;
+    }
+
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      this.updateAccountDataForm.patchValue(userData);
+    } else {
+      this.getData();
+    }
   }
 
   getData(): void {
@@ -59,12 +73,22 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
     });
   }
   
-
   onSubmit(event: Event): void {
+    
     event.preventDefault();
     if (this.updateAccountDataForm.valid) {
-     // à faire
+      const updatedUserData: UserDTO = this.updateAccountDataForm.value;
+      this.accountService.updateUserData(updatedUserData).subscribe({
+        next: (updatedData: UserDTO) => {
+          localStorage.setItem('userData', JSON.stringify(updatedData));
+          this.updateAccountDataForm.patchValue(updatedData); 
+        },
+        error: (error) => {
+          console.error('Error :', error);
+        },
+      });
     }
   }
+  
 }
 

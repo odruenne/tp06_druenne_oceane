@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDTO } from '../models/LoginDTO';
-import { LoginService } from '../services/login.service';
-import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import {  Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { MessageService } from '../services/message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
@@ -13,14 +14,22 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css'
 })
-export class LoginFormComponent {
+
+
+export class LoginFormComponent implements OnDestroy {
   connectionForm: FormGroup;
   showErrorMessage : boolean = false;
-
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) {
+  message: string;
+  subscription: Subscription;
+  
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private messageService : MessageService) {
     this.connectionForm = this.formBuilder.group({
       login: ['',[Validators.required]],
       password: ['',[Validators.required]]
+    });
+
+    this.subscription = this.messageService.data$.subscribe(data => {
+      this.message = data;
     });
   }
 
@@ -33,16 +42,19 @@ export class LoginFormComponent {
         password: this.connectionForm.value.password,
       };
 
-      this.loginService.login(loginDTO).subscribe(
-        {
-          complete: () => this.router.navigate(['/catalog']),
-          error: err => {
-            this.showErrorMessage = true;
-            this.connectionForm.reset();
-          }
+      this.authService.login(loginDTO).subscribe(
+      {
+        complete: () => this.router.navigate(['/catalog']),
+        error: err => {
+          this.showErrorMessage = true;
+          this.connectionForm.reset();
         }
+      }
       );
-     
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

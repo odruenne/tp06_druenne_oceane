@@ -4,6 +4,8 @@ import { Kibbles } from '../../store/models/kibbles';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngxs/store';
 import { AddItemToShoppingCart } from '../../store/actions/shoppingCart-action';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -16,9 +18,15 @@ export class KibblesList implements OnInit {
 
   kibbles: Kibbles[];
 
-  constructor(private kibblesService : KibblesService, private store: Store) { }
+  constructor(private kibblesService : KibblesService, private store: Store, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+
+    if (this.authService.isTokenExpired()) {
+      this.router.navigate(['/logout']);
+      return;
+    }
+
     this.kibblesService.kibblesObservable.subscribe(res => this.kibbles = res);
     this.getKibbles();
   }
