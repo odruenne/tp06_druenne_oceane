@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Kibbles } from '../../store/models/kibbles';
 import { environment } from '../environments/environment'
-import { MessageService } from './message.service';
 import { Router } from '@angular/router';
 
 /* KibblesService est un service dans le front qui va gérer la récupération des kibbles */
@@ -15,7 +14,7 @@ export class KibblesService implements OnDestroy {
   kibblesSubject: BehaviorSubject<Kibbles[]> = new BehaviorSubject<Kibbles[]>([]); 
   kibblesObservable : Observable<Kibbles[]> = this.kibblesSubject.asObservable();
   
-  constructor(private httpClient: HttpClient, private router: Router, private messageService: MessageService) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   public getKibbles(tasteFilter: string, priceFilter: number): void {
     this.httpClient.get<Kibbles[]>(environment.backendURL + "/kibbles")

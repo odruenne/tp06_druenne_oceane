@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
-import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-logout',
@@ -11,21 +10,15 @@ import { MessageService } from '../services/message.service';
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.css'
 })
-export class LogoutComponent implements OnInit, OnDestroy {
+export class LogoutComponent implements OnInit {
   message: string;
   subscription: Subscription;
   
-  constructor(private authService: AuthService, private messageService : MessageService) {
-    this.subscription = this.messageService.data$.subscribe(data => {
-      this.message = data;
-    });
+  constructor(private authService: AuthService) {
+
   }
 
   ngOnInit(): void {
     this.authService.logout();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

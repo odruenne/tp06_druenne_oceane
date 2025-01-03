@@ -35,12 +35,6 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    // if (this.authService.isTokenExpired()) {
-    //   this.router.navigate(['/logout']);
-    //   return;
-    // }
-
     const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);

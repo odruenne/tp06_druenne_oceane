@@ -5,7 +5,6 @@ import { environment } from '../environments/environment'
 import { Router } from '@angular/router';
 import { UserDTO } from '../models/UserDTO';
 import { AuthService } from './auth.service';
-import { MessageService } from './message.service';
 
 /* AccountService est un service dans le front qui va appeler l'API pour récupérer les données de l'utilisateur */
 @Injectable({
@@ -16,7 +15,6 @@ export class AccountService {
     private httpClient: HttpClient,
     private router: Router,
     private authService: AuthService,
-    private messageService: MessageService
   ) {}
 
 

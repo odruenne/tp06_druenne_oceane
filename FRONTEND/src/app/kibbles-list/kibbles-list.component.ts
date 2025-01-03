@@ -21,12 +21,6 @@ export class KibblesList implements OnInit {
   constructor(private kibblesService : KibblesService, private store: Store, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-
-    // if (this.authService.isTokenExpired()) {
-    //   this.router.navigate(['/logout']);
-    //   return;
-    // }
-
     this.kibblesService.kibblesObservable.subscribe(res => this.kibbles = res);
     this.getKibbles();
   }
