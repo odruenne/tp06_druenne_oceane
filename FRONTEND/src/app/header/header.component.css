@@ -11,6 +11,15 @@ div {
 	align-content: stretch;
 }
 
+#buttons-div {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: stretch;
+}
+
 h1 {
     margin: 0;
     padding: 0;

@@ -20,14 +20,6 @@ export class KibblesService implements OnDestroy {
   public getKibbles(tasteFilter: string, priceFilter: number): void {
     this.httpClient.get<Kibbles[]>(environment.backendURL + "/kibbles")
     .pipe(
-      tap({
-        error: (err) => {
-          if (err.status === 401) {
-            this.messageService.setData('You must be logged in to access to the catalog.');
-            this.router.navigate(['/login']);
-          }
-        }
-      }),
       map((kibbles: Kibbles[]) => {
         return kibbles
               .filter((k: Kibbles) => k.taste.toLowerCase().includes(tasteFilter.toLowerCase()))

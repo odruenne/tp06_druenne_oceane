@@ -36,10 +36,10 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.authService.isTokenExpired()) {
-      this.router.navigate(['/logout']);
-      return;
-    }
+    // if (this.authService.isTokenExpired()) {
+    //   this.router.navigate(['/logout']);
+    //   return;
+    // }
 
     const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
@@ -89,6 +89,4 @@ export class EditCustomerAccountDataFormComponent implements OnInit {
       });
     }
   }
-  
 }
-

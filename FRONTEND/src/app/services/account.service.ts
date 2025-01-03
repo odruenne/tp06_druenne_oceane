@@ -23,16 +23,7 @@ export class AccountService {
   public getDataFromUser(): Observable<UserDTO> {
     let login: string = this.authService.getLoginFromLoggedInUser();
     const headers = { 'login': login };
-    return this.httpClient.get<UserDTO>(`${environment.backendURL}/auth/profile`, { headers }).pipe(
-      tap({
-        error: (err) => {
-          if (err.status === 401) {
-            this.messageService.setData('You must be logged in to access to your profile.');
-            this.router.navigate(['/login']);
-          }
-        },
-      })
-    );
+    return this.httpClient.get<UserDTO>(`${environment.backendURL}/auth/profile`, { headers });
   }
 
   public updateUserData(userDTO: UserDTO): Observable<UserDTO> {
@@ -42,5 +33,4 @@ export class AccountService {
   
     return this.httpClient.put<UserDTO>(`${environment.backendURL}/auth/profile`, userDTOWithLogin);
   }
-  
 }

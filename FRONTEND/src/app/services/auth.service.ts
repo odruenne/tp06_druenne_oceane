@@ -28,25 +28,17 @@ export class AuthService {
   }
 
   public isTokenExpired() : boolean {
-    let isExpired : boolean = false;
-    
-    if (this.jwtService.isTokenExpired(this.getTokenFromLocalStorage())) {
-      isExpired = true;
-    }
-
-    return isExpired;
+    return this.jwtService.isTokenExpired(this.getTokenFromLocalStorage());
   }
 
   public logout() : void {
     localStorage.removeItem(environment.access_token); 
-    console.log("item removed"); 
   }
 
   public getTokenFromLocalStorage(): string | null {
     return localStorage.getItem(environment.access_token); 
   }
   
-
   public getLoginFromLoggedInUser(): string {
     const token = this.getTokenFromLocalStorage();
     

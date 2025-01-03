@@ -26,10 +26,10 @@
 
   <label for="civility">Civilité : </label>
   <select name="civility" id="civility" [(ngModel)]="user.civility" required>
-      <option value="">--Choisir une civilité--</option>
-      <option value="madame">Madame</option>
-      <option value="mademoiselle">Mademoiselle</option>
-      <option value="monsieur">Monsieur</option>
+    <option value="">--Choisir une civilité--</option>
+    <option value="madame">Madame</option>
+    <option value="mademoiselle">Mademoiselle</option>
+    <option value="monsieur">Monsieur</option>
   </select>
 
   <label for="login">Identifiant : </label>
@@ -43,7 +43,7 @@
   <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" [(ngModel)]="user.confirmPassword" required />
 
   <div *ngIf="user.password !== user.confirmPassword && userForm.submitted" style="color: red;">
-      Les mots de passe ne correspondent pas.
+    Les mots de passe ne correspondent pas.
   </div>
 
   <input type="submit" value="Envoyer" [disabled]="userForm.invalid || user.password !== user.confirmPassword" />

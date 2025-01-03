@@ -22,10 +22,10 @@ export class KibblesList implements OnInit {
 
   ngOnInit() {
 
-    if (this.authService.isTokenExpired()) {
-      this.router.navigate(['/logout']);
-      return;
-    }
+    // if (this.authService.isTokenExpired()) {
+    //   this.router.navigate(['/logout']);
+    //   return;
+    // }
 
     this.kibblesService.kibblesObservable.subscribe(res => this.kibbles = res);
     this.getKibbles();

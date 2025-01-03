@@ -5,8 +5,13 @@
 </head>
 <div>
     <h1>{{ title }}</h1>
-    <button routerLink="app-shopping-cart">
-        <p>View shopping cart</p>
-        <p>Items : {{ nbOfItems | async }}</p>
-    </button>
+    <div id="buttons-div">
+        <button routerLink="app-shopping-cart">
+            <p>View shopping cart</p>
+            <p>Items : {{ nbOfItems | async }}</p>
+        </button>
+        <button routerLink="profile"><p>Check my profile</p></button>
+        <button routerLink="catalog"><p>Catalog</p></button>
+    </div>
+
 </div>

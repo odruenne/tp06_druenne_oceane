@@ -2,10 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDTO } from '../models/LoginDTO';
 import { AuthService } from '../services/auth.service';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MessageService } from '../services/message.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
@@ -16,21 +14,16 @@ import { Subscription } from 'rxjs';
 })
 
 
-export class LoginFormComponent implements OnDestroy {
+export class LoginFormComponent {
   connectionForm: FormGroup;
   showErrorMessage : boolean = false;
-  message: string;
-  subscription: Subscription;
   
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private messageService : MessageService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.connectionForm = this.formBuilder.group({
       login: ['',[Validators.required]],
       password: ['',[Validators.required]]
     });
 
-    this.subscription = this.messageService.data$.subscribe(data => {
-      this.message = data;
-    });
   }
 
   onSubmit(event: Event) : void {
@@ -52,9 +45,5 @@ export class LoginFormComponent implements OnDestroy {
       }
       );
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
