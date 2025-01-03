@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
-import { UsersService } from 'src/users/users.service';
-import { UserDTO } from 'src/users/interfaces/userDTO.interface';
+import { UsersService } from '../users/users.service';
+import { UserDTO } from '../users/interfaces/userDTO.interface';
 import { AuthGuard } from './auth.guard';
   
 
